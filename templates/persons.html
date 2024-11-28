@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Lista osób</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Height</th>
+                <th>Sex</th>
+                <th>Age</th>
+                <th>Image</th>
+                <th>Activity per Day</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in persons %}
+                <tr>
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.weight }}</td>
+                    <td>{{ person.height }}</td>
+                    <td>
+                        {% if person.sex == 0 %}
+                            Male
+                        {% elif person.sex == 1 %}
+                            Female
+                        {% else %}
+                            Other
+                        {% endif %}
+                    </td>
+                    <td>{{ person.age }}</td>
+                    <td>
+                        {% if person.image %}
+                            <img src="{{ person.image.url }}" alt="Image of {{ person.name }}" width="100">
+                        {% else %}
+                            No Image
+                        {% endif %}
+                    </td>
+                    <td>{{ person.activePerDay }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7">No persons found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

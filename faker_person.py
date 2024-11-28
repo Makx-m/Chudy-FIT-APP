@@ -9,7 +9,7 @@ django.setup()
 
 from chudyapp.models.PersonModel import Person
 
-def persons(N=1000000):
+def persons(N=1_000):
     fake = Faker()
 
     for _ in range(N):
