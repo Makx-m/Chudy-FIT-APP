@@ -5,6 +5,8 @@ urlpatterns = [
     path('test/', index),
     path('html/', indexPersons),
     path('persons/', indexPersonsJSON),
-    path('login/', login_view),  
-    path('signup/', signup_view),  
+    path('login/', login_view, name='login'),
+    path('signup/', signup_view, name='signup'),  
 ]
+
+
