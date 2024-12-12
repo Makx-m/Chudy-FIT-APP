@@ -80,3 +80,38 @@ def signup_view(request):
         except json.JSONDecodeError:
             return JsonResponse({"message": "Invalid JSON"}, status=400)
     return JsonResponse({"message": "Invalid method"}, status=405)
+
+@csrf_exempt
+def change_password(request):
+    
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            print(data)
+            # data = json.loads(request.body)
+            username = data.get("username")
+            new_password = data.get("new_password")
+            password = data.get("password")
+           
+            if not username or not new_password:
+                return JsonResponse({"message": "Username and new_password are required"}, status=400)
+
+            try:
+                # user = User.objects.get(username=username, password=password)
+                user = authenticate(username=username, password=password)
+            except User.DoesNotExist:
+                return JsonResponse({"message": "User not found"}, status=404)
+
+            user.set_password(new_password)
+            user.save()
+
+            return JsonResponse({"message": "Password updated successfully"}, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"message": "Invalid JSON format"}, status=400)
+    return JsonResponse({"message": "Invalid method. Use POST."}, status=405)
+
+
+from django.urls import path
+from chudyapp.views import index, indexPersons, indexPersonsJSON, login_view, signup_view
+from .views import change_password 
