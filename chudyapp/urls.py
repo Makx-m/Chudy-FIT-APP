@@ -1,7 +1,7 @@
 from django.urls import path
 from chudyapp.views import index, indexPersons, indexPersonsJSON, login_view, signup_view
 from .views import change_password
-patterns = [
+urlpatterns = [
     path('test/', index),
     path('html/', indexPersons),
     path('persons/', indexPersonsJSON),
